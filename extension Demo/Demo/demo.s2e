@@ -1,0 +1,65 @@
+{	"extensionName": "UMI Hello",
+	"description": "Extension for UMI Hello",
+	"version": "0.3",
+	"author": "UMI Academy",
+	"homepage": "umi.edu.vn",
+	"sort":0,
+	"javascriptURL":"js/demo.js",
+  "firmware":"1.0",
+  "extensionPort":0,
+	"blockSpecs": [
+		["h","UMI Blocks","runArduino"],
+
+		[
+			"w",
+			"mix neopixel LED number %n color: Red %n Green %n Blue %n",
+			"neopixel",
+			"0",
+			"0",
+			"0",
+			"0",
+			{
+				"setup":"pixels.begin();",
+				"inc":"#include \"Adafruit_NeoPixel.h\"",
+				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);",
+				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"%d.side motor moves %d.direction with speed %n",
+			"motor setup",
+			"LEFT",
+			"Forward",
+			"100",
+			{
+				"setup":"pinMode(4,OUTPUT);\npinMode(7,OUTPUT);\npinMode(5,OUTPUT);\npinMode(8,OUTPUT);\npinMode(9,OUTPUT);\npinMode(6,OUTPUT);\n",
+				"inc":"void Motor(boolean side, boolean direction, double speed);\n",
+				"def":"--separator--\nvoid Motor(boolean side, boolean direction, double speed)\n{\n  if(side == 0) analogWrite(5,speed);\n  if(side == 1) analogWrite(6,speed);\n  if(side == 0 && direction == 0) digitalWrite(4,0);\n  if(side == 0 && direction == 0) digitalWrite(7,1);\n  if(side == 0 && direction == 1) digitalWrite(4,1);\n  if(side == 0 && direction == 1) digitalWrite(7,0);\n  if(side == 1 && direction == 0) digitalWrite(8,0);\n  if(side == 1 && direction == 0) digitalWrite(9,1);\n  if(side == 1 && direction == 1) digitalWrite(8,1);\n  if(side == 1 && direction == 1) digitalWrite(9,0);\n}",
+				"work":"Motor({0},{1},map({2},0,100,0,255));\n",
+				"loop":""
+			}
+		],
+	],
+	"menus": {
+		"digital":["HIGH","LOW"],
+		"side": ["LEFT","RIGHT"],
+		"direction": ["Forward","Backward"]
+	},
+	"values":{
+		"HIGH":1,
+		"LOW":0,
+		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1
+	},
+	"translators":{
+		"zh_CN":{
+			"Demo Program":"演示程序",
+			"HIGH":"高电平",
+			"LOW":"低电平",
+			"digitalWrite( %n , %d.digital )":"数字口输出( %n ,%d.digital )",
+      "blink":"闪烁"
+		}
+	}
+}
