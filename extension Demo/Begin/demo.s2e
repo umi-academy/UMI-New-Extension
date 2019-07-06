@@ -1,5 +1,5 @@
-{	"extensionName": "UMI Hello",
-	"description": "Extension for UMI Hello",
+{	"extensionName": "UMI Begin",
+	"description": "Extension for UMI Begin",
 	"version": "0.3",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
@@ -8,7 +8,7 @@
   "firmware":"1.0",
   "extensionPort":0,
 	"blockSpecs": [
-		["h","UMI Hello","runArduino"],
+		["h","UMI Begin","runArduino"],
 
 		[
 			"w",
@@ -23,6 +23,19 @@
 				"inc":"#include \"Adafruit_NeoPixel.h\"",
 				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);",
 				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
+				"loop":""
+			}
+		],
+
+		[
+			"B",
+			"Button pressed",
+			"button",
+			{
+				"setup":"pinMode(11,INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"!digitalRead(11)",
 				"loop":""
 			}
 		],
