@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "0.3",
+	"version": "0.4.1",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -12,7 +12,7 @@
 
 		[
 			"w",
-			"mix neopixel LED number %n color: Red %n Green %n Blue %n",
+			"RGB LED number %n color: Red %n Green %n Blue %n",
 			"neopixel",
 			"0",
 			"0",
@@ -20,10 +20,25 @@
 			"0",
 			{
 				"setup":"pixels.begin();",
-				"inc":"#include \"Adafruit_NeoPixel.h\"",
+				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
 				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);",
 				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
 				"loop":""
+			}
+		],
+
+		[
+			"B",
+			"read remote from channel %d.channel and button %d.button2",
+			"my2IR",
+			"channel-1",
+			"up",
+			{
+				"setup":"My_Receiver.enableIRIn();\n",
+				"inc":"#include \"IRLib.h\"\n",
+				"def":"IRrecv My_Receiver(2);\nIRdecode My_Decoder;\nIRdecodeHash My_Hash_Decoder;\nunsigned long IRvalue = 0;\nunsigned long lastSend = 0;\n--separator--void checkIR()\n--separator--{\nunsigned long nowSend = millis();\nif (My_Receiver.GetResults(&My_Decoder))\n--separator--{\nMy_Hash_Decoder.copyBuf(&My_Decoder);\n My_Decoder.decode();\n My_Hash_Decoder.decode();\n IRvalue = My_Hash_Decoder.hash;\n My_Receiver.resume();\n}\nif (nowSend - lastSend > 1000)\n--separator--{\nIRvalue = 0;\nlastSend = millis();\n}\n}\nunsigned long irTable[6][8] =\n {\n370326124,  2234768866, 4165481121, 4215813976, 4215813979, 3544562122, 2483161182, 397148545,\n3893169039, 1954985285, 30903566,  47681187,  47681184,  718933041, 1780333981, 3059046297,\n501778864, 835149340, 2759231059, 2742453438, 2742453437, 327020756, 2614613922, 2742453438,\n722094923, 781883471, 3146138512, 3095805657, 3095805658, 1216271043, 1618831895, 4182939477,\n1457459944, 3641320698, 1277065657, 1327398512, 1327398515, 656146658, 1199558996, 274198899,\n 0, 0, 0, 0, 0, 0, 0, 0\n};\n",
+				"work":"!(IRvalue - irTable[{1}][{0}])",
+				"loop":"checkIR();\n"
 			}
 		],
 
@@ -46,12 +61,16 @@
 	"menus": {
 		"digital":["HIGH","LOW"],
 		"side": ["LEFT","RIGHT"],
-		"direction": ["Forward","Backward"]
+		"direction": ["Forward","Backward"],
+		"button2":["up", "down", "left", "right", "f4", "NULL"],
+		"channel":["channel-1", "channel-2", "channel-3", "channel-4", "channel-5", "channel-6", "channel-7", "channel-8"]
 	},
 	"values":{
 		"HIGH":1,
 		"LOW":0,
-		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1
+		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1,
+		"up": 0, "down": 1, "left":2, "right":3, "f4": 4, "NULL": 5,
+		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6, "channel-8": 7
 	},
 	"translators":{
 		"zh_CN":{
