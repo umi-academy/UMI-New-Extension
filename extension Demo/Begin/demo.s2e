@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Begin",
 	"description": "Extension for UMI Begin",
-	"version": "0.7.1",
+	"version": "0.7.5",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -80,15 +80,28 @@
 		],
 
 		[
-			"R",
-			"Read command",
+			"w",
+			"Read commands",
 			"readSerial",
 			{
 				"setup":"Serial.begin(115200);\n",
 				"inc":"",
 				"def":"String voice;\nunsigned long preRead = 0;\n",
+				"work":"while (Serial.available())\n{\ndelay(10);\nchar c = Serial.read();\nif (c == '\\n') break;\nvoice += c;\n}\nif (voice.length() > 0)\n{\nSerial.print(\"UMI robot \");\nSerial.println(voice);\n}\n",
+				"loop":"voice = \"\";\n"
+			}
+		],
+
+		[
+			"R",
+			"The command are read",
+			"readSerial2",
+			{
+				"setup":"Serial.begin(115200);\n",
+				"inc":"",
+				"def":"String voice;\nunsigned long preRead = 0;\n",
 				"work":"voice",
-				"loop":"while (Serial.available())\n{\ndelay(10);\nchar c = Serial.read();\nif (c == '\\n') break;\nvoice += c;\n}\nunsigned long nowRead = millis();\nif (nowRead - preRead > 1000)\n{\nvoice=\"\";\npreRead = millis();\n}\n"
+				"loop":"voice = \"\";\n"
 			}
 		],
 
