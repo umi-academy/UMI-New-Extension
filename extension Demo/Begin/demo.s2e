@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Begin",
 	"description": "Extension for UMI Begin",
-	"version": "0.5.8",
+	"version": "0.7.1",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -75,6 +75,44 @@
 				"inc":"#include <Servo.h>\n",
 				"def":"Servo servo_{0};\n",
 				"work":"servo_{0}.write({1}); // write to servo\n",
+				"loop":""
+			}
+		],
+
+		[
+			"R",
+			"Read command",
+			"readSerial",
+			{
+				"setup":"Serial.begin(115200);\n",
+				"inc":"",
+				"def":"String voice;\nunsigned long preRead = 0;\n",
+				"work":"voice",
+				"loop":"while (Serial.available())\n{\ndelay(10);\nchar c = Serial.read();\nif (c == '\\n') break;\nvoice += c;\n}\nunsigned long nowRead = millis();\nif (nowRead - preRead > 1000)\n{\nvoice=\"\";\npreRead = millis();\n}\n"
+			}
+		],
+
+		[
+			"R",
+			"Timer",
+			"getTimer",
+			{
+				"setup":"",
+				"inc":"",
+				"def":"double currentTime = 0;\ndouble lastTime = 0;\n--separator--double getLastTime(){\n\treturn currentTime = millis()/1000.0 - lastTime;\n}\n",
+				"work":"getLastTime()",
+				"loop":""
+			}
+		],
+		
+		[
+			"w",
+			"Reset Timer",
+			"resetTimer",
+			{
+				"setup":"",
+				"inc":"","def":"double currentTime = 0;\ndouble lastTime = 0;\n",
+				"work":"lastTime = millis()/1000.0;\n",
 				"loop":""
 			}
 		],

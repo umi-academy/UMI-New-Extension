@@ -96,7 +96,7 @@
 
 		[
 			"w",
-			"Print %s to computer",
+			"Print text %s",
 			"serialWrite",
 			"hello",
 			{
