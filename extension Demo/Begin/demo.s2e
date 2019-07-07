@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Begin",
 	"description": "Extension for UMI Begin",
-	"version": "0.3.1",
+	"version": "0.5.8",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -8,50 +8,73 @@
   "firmware":"1.0",
   "extensionPort":0,
 	"blockSpecs": [
-		["h","UMI Begin","runArduino"],
-
 		[
-			"w",
-			"RGB LED number %n color: Red %n Green %n Blue %n",
-			"neopixel",
-			"0",
-			"0",
-			"0",
-			"0",
+			"h",
+			"UMI Begin",
+			"runArduino",
 			{
-				"setup":"pixels.begin();\n",
+				"setup":"pixels.begin();\npixels.clear();\npixels.show();\n",
 				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
 				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
-				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
+				"work":"",
+				"loop":""
+			}
+		],
+
+		[
+			"R",
+			"Read ultrasonic sensor trig pin %d.dpin echo pin %d.dpin",
+			"getUltrasonicArduino",
+			"A2",
+			"A3",
+			{
+				"setup":"",
+				"inc":"",
+				"def":"--separator--float getDistance(int trig,int echo){\npinMode(trig,OUTPUT);\ndigitalWrite(trig,LOW);\ndelayMicroseconds(2);\ndigitalWrite(trig,HIGH);\ndelayMicroseconds(10);\ndigitalWrite(trig,LOW);\npinMode(echo, INPUT);\nreturn pulseIn(echo,HIGH,30000)/58.0;\n}\n",
+				"work":"getDistance({0},{1})",
+				"loop":""
+			}
+		],
+
+		[
+			"R",
+			"Read analog pin %d.apin",
+			"getAnalog",
+			"A0",
+			{
+				"setup":"pinMode(A0+{0}-14,INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"analogRead(A0+{0}-14)",
 				"loop":""
 			}
 		],
 
 		[
 			"B",
-			"Button pressed",
-			"button",
+			"Read digital pin %d.dpin",
+			"getDigital",
+			"A2",
 			{
-				"setup":"pinMode(11,INPUT);\n",
+				"setup":"pinMode({0},INPUT);\n",
 				"inc":"",
 				"def":"",
-				"work":"!digitalRead(11)",
+				"work":"digitalRead({0})",
 				"loop":""
 			}
 		],
 
 		[
 			"w",
-			"%d.side motor moves %d.direction with speed %n",
-			"motor setup",
-			"LEFT",
-			"Forward",
-			"100",
+			"Set servo pin %d.dpin angle as %d.servovalue",
+			"runServoArduino",
+			"A2",
+			"90",
 			{
-				"setup":"pinMode(4,OUTPUT);\npinMode(7,OUTPUT);\npinMode(5,OUTPUT);\npinMode(8,OUTPUT);\npinMode(9,OUTPUT);\npinMode(6,OUTPUT);\n",
-				"inc":"void Motor(boolean side, boolean direction, double speed);\n",
-				"def":"--separator--\nvoid Motor(boolean side, boolean direction, double speed)\n{\n  if(side == 0) analogWrite(5,speed);\n  if(side == 1) analogWrite(6,speed);\n  if(side == 0 && direction == 0) digitalWrite(4,0);\n  if(side == 0 && direction == 0) digitalWrite(7,1);\n  if(side == 0 && direction == 1) digitalWrite(4,1);\n  if(side == 0 && direction == 1) digitalWrite(7,0);\n  if(side == 1 && direction == 0) digitalWrite(8,0);\n  if(side == 1 && direction == 0) digitalWrite(9,1);\n  if(side == 1 && direction == 1) digitalWrite(8,1);\n  if(side == 1 && direction == 1) digitalWrite(9,0);\n}",
-				"work":"Motor({0},{1},map({2},0,100,0,255));\n",
+				"setup":"servo_{0}.attach({0}); // init pin\n",
+				"inc":"#include <Servo.h>\n",
+				"def":"Servo servo_{0};\n",
+				"work":"servo_{0}.write({1}); // write to servo\n",
 				"loop":""
 			}
 		],
@@ -60,12 +83,16 @@
 	"menus": {
 		"digital":["HIGH","LOW"],
 		"side": ["LEFT","RIGHT"],
-		"direction": ["Forward","Backward"]
+		"direction": ["Forward","Backward"],
+		"dpin": ["A0", "A2", "A3", "A4", "A5", "D4", "D5", "D6", "D7", "D8", "D9", "D11", "D12"],
+		"apin": ["A0", "A1", "A2", "A3", "A4", "A5"],
+		"servovalue":["0","45","90","135","180"]
 	},
 	"values":{
 		"HIGH":1,
 		"LOW":0,
-		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1
+		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1,
+		"A0": 14, "A1": 15, "A2": 16, "A3": 17, "A4": 18, "A5": 19, "D4": 4, "D5": 5, "D6": 6, "D7": 7, "D8": 8, "D9": 9, "D11": 11, "D12": 12
 	},
 	"translators":{
 		"zh_CN":{
