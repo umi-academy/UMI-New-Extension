@@ -19,9 +19,9 @@
 			"0",
 			"0",
 			{
-				"setup":"pixels.begin();",
+				"setup":"pixels.begin();\n",
 				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
-				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);",
+				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
 				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
 				"loop":""
 			}
@@ -55,6 +55,7 @@
 				"loop":""
 			}
 		],
+
 	],
 	"menus": {
 		"digital":["HIGH","LOW"],

@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "0.4.1",
+	"version": "0.4.6",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -19,10 +19,35 @@
 			"0",
 			"0",
 			{
-				"setup":"pixels.begin();",
+				"setup":"pixels.begin();\n",
 				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
-				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);",
+				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
 				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
+				"loop":""
+			}
+		],
+
+		[
+			"R",
+			"Read light sensor","lightSensor",
+			{
+				"setup":"pinMode(A1,INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"analogRead(A1)",
+				"loop":""
+			}
+		],
+
+		[
+			"B",
+			"Button pressed",
+			"button",
+			{
+				"setup":"pinMode(11,INPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"!digitalRead(11)",
 				"loop":""
 			}
 		],
@@ -57,6 +82,21 @@
 				"loop":""
 			}
 		],
+
+		[
+			"w",
+			"Print %s to computer",
+			"serialWrite",
+			"hello",
+			{
+				"setup":"Serial.begin(115200);\n",
+				"inc":"",
+				"def":"",
+				"work":"Serial.println({0});\n",
+				"loop":""
+			}
+		],
+
 	],
 	"menus": {
 		"digital":["HIGH","LOW"],
