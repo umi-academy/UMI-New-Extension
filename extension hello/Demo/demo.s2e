@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "0.6",
+	"version": "1.0",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -34,6 +34,21 @@
 				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
 				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
 				"work":"pixels.setPixelColor({0}, pixels.Color({1},{2},{3}));\npixels.show();\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Play tone on note %d.notes beat %d.beats",
+			"runTone",
+			"C-4",
+			"Half",
+			{
+				"setup":"pinMode(10,OUTPUT);\n",
+				"inc":"#include \"NewTone.h\"\n",
+				"def":"",
+				"work":"NewTone(10,{0},{1}); // write to buzzer\ndelay({1});\n",
 				"loop":""
 			}
 		],
@@ -114,14 +129,25 @@
 		"side": ["LEFT","RIGHT"],
 		"direction": ["Forward","Backward"],
 		"button2":["up", "down", "left", "right", "f4", "NULL"],
-		"channel":["channel-1", "channel-2", "channel-3", "channel-4", "channel-5", "channel-6", "channel-7", "channel-8"]
+		"channel":["channel-1", "channel-2", "channel-3", "channel-4", "channel-5", "channel-6", "channel-7", "channel-8"],
+		"notes":["C-2","D-2","E-2","F-2","G-2","A-2","B-2","C-3","D-3","E-3","F-3","G-3","A-3","B-3","C-4","D-4","E-4","F-4","G-4","A-4","B-4","C-5","D-5","E-5","F-5","G-5","A-5","B-5","C-6","D-6","E-6","F-6","G-6","A-6","B-6","C-7","D-7","E-7","F-7","G-7","A-7","B-7","C-8","D-8"],
+		"beats":["Half","Quarter","Eighth","Whole","Double","Zero"]
 	},
 	"values":{
 		"HIGH":1,
 		"LOW":0,
 		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1,
 		"up": 0, "down": 1, "left":2, "right":3, "f4": 4, "NULL": 5,
-		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6, "channel-8": 7
+		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6, "channel-8": 7,
+		"B-0":31,"C-1":33,"D-1":37,"E-1":41,"F-1":44,"G-1":49,"A-1":55,"B-1":62,
+			"C-2":65,"D-2":73,"E-2":82,"F-2":87,"G-2":98,"A-2":110,"B-2":123,
+			"C-3":131,"D-3":147,"E-3":165,"F-3":175,"G-3":196,"A-3":220,"B-3":247,
+			"C-4":262,"D-4":294,"E-4":330,"F-4":349,"G-4":392,"A-4":440,"B-4":494,
+			"C-5":523,"D-5":587,"E-5":659,"F-5":698,"G-5":784,"A-5":880,"B-5":988,
+			"C-6":1047,"D-6":1175,"E-6":1319,"F-6":1397,"G-6":1568,"A-6":1760,"B-6":1976,
+			"C-7":2093,"D-7":2349,"E-7":2637,"F-7":2794,"G-7":3136,"A-7":3520,"B-7":3951,
+			"C-8":4186,"D-8":4699,
+		"Half":500,"Quarter":250,"Eighth":125,"Whole":1000,"Double":2000,"Zero":0
 	},
 	"translators":{
 		"zh_CN":{
