@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "1.0",
+	"version": "1.2",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -41,14 +41,14 @@
 		[
 			"w",
 			"Play tone on note %d.notes beat %d.beats",
-			"runTone",
+			"newTone",
 			"C-4",
 			"Half",
 			{
-				"setup":"pinMode(10,OUTPUT);\n",
-				"inc":"#include \"NewTone.h\"\n",
+				"setup":"",
+				"inc":"#include \"TimerFreeTone.h\"\n",
 				"def":"",
-				"work":"NewTone(10,{0},{1}); // write to buzzer\ndelay({1});\n",
+				"work":"TimerFreeTone(10,{0},{1}); // write to buzzer\ndelay({1});\n",
 				"loop":""
 			}
 		],
