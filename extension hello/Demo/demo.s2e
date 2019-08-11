@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "1.2",
+	"version": "1.3",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -87,7 +87,7 @@
 			{
 				"setup":"My_Receiver.enableIRIn();\n",
 				"inc":"#include \"IRLib.h\"\n",
-				"def":"IRrecv My_Receiver(2);\nIRdecode My_Decoder;\nIRdecodeHash My_Hash_Decoder;\nunsigned long IRvalue = 0;\nunsigned long lastSend = 0;\n--separator--void checkIR()\n--separator--{\nunsigned long nowSend = millis();\nif (My_Receiver.GetResults(&My_Decoder))\n--separator--{\nMy_Hash_Decoder.copyBuf(&My_Decoder);\n My_Decoder.decode();\n My_Hash_Decoder.decode();\n IRvalue = My_Hash_Decoder.hash;\n My_Receiver.resume();\n}\nif (nowSend - lastSend > 1000)\n--separator--{\nIRvalue = 0;\nlastSend = millis();\n}\n}\nunsigned long irTable[6][8] =\n {\n370326124,  2234768866, 4165481121, 4215813976, 4215813979, 3544562122, 2483161182, 397148545,\n3893169039, 1954985285, 30903566,  47681187,  47681184,  718933041, 1780333981, 3059046297,\n501778864, 835149340, 2759231059, 2742453438, 2742453437, 327020756, 2614613922, 2742453438,\n722094923, 781883471, 3146138512, 3095805657, 3095805658, 1216271043, 1618831895, 4182939477,\n1457459944, 3641320698, 1277065657, 1327398512, 1327398515, 656146658, 1199558996, 274198899,\n 0, 0, 0, 0, 0, 0, 0, 0\n};\n",
+				"def":"IRrecv My_Receiver(2);\nIRdecode My_Decoder;\nIRdecodeHash My_Hash_Decoder;\nunsigned long IRvalue = 0;\nunsigned long lastSend = 0;\n--separator--void checkIR()\n--separator--{\nunsigned long nowSend = millis();\nif (My_Receiver.GetResults(&My_Decoder))\n--separator--{\nMy_Hash_Decoder.copyBuf(&My_Decoder);\n My_Decoder.decode();\n My_Hash_Decoder.decode();\n IRvalue = My_Hash_Decoder.hash;\n My_Receiver.resume();\n}\nif (nowSend - lastSend > 1000)\n--separator--{\nIRvalue = 0;\nlastSend = millis();\n}\n}\nunsigned long irTable[11][7] =\n {\n370326124,  2234768866, 4165481121, 4215813976, 4215813979, 3544562122, 2483161182,\n3893169039, 1954985285, 30903566,  47681187,  47681184,  718933041, 1780333981,\n501778864, 835149340, 2759231059, 2742453438, 2742453437, 327020756, 2614613922,\n722094923, 781883471, 3146138512, 3095805657, 3095805658, 1216271043, 1618831895,\n1457459944, 3641320698, 1277065657, 1327398512, 1327398515, 656146658, 1199558996,\n 0, 0, 0, 0, 0, 0, 0,\n1617168950, 3784745487, 1854033232, 1803700377, 1803700378, 4219133059, 326726615,\n2933973986, 896608456, 2820690175, 2803912554, 2803912553, 388479872, 2676073038,\n2953684621, 1089241879, 3453496920, 3403164065, 3403164066, 1523629451, 1926190303,\n1682142039, 1869017291, 4233272332, 4182939477, 4182939478, 2303404863, 15811697,\n1189162337, 855791861, 3226677438, 3243455059, 3243455056, 3914706913, 3371294575\n};\n",
 				"work":"!(IRvalue - irTable[{1}][{0}])",
 				"loop":"checkIR();\n"
 			}
@@ -128,8 +128,8 @@
 		"digital":["HIGH","LOW"],
 		"side": ["LEFT","RIGHT"],
 		"direction": ["Forward","Backward"],
-		"button2":["up", "down", "left", "right", "f4", "NULL"],
-		"channel":["channel-1", "channel-2", "channel-3", "channel-4", "channel-5", "channel-6", "channel-7", "channel-8"],
+		"button2":["up", "down", "left", "right", "F4", "F6", "NULL", "up + left", "up + right", "down + left", "down + right"],
+		"channel":["channel-1", "channel-2", "channel-3", "channel-4", "channel-5", "channel-6", "channel-7"],
 		"notes":["C-2","D-2","E-2","F-2","G-2","A-2","B-2","C-3","D-3","E-3","F-3","G-3","A-3","B-3","C-4","D-4","E-4","F-4","G-4","A-4","B-4","C-5","D-5","E-5","F-5","G-5","A-5","B-5","C-6","D-6","E-6","F-6","G-6","A-6","B-6","C-7","D-7","E-7","F-7","G-7","A-7","B-7","C-8","D-8"],
 		"beats":["Half","Quarter","Eighth","Whole","Double","Zero"]
 	},
@@ -137,8 +137,8 @@
 		"HIGH":1,
 		"LOW":0,
 		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1,
-		"up": 0, "down": 1, "left":2, "right":3, "f4": 4, "NULL": 5,
-		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6, "channel-8": 7,
+		"up": 0, "down": 1, "left":2, "right":3, "F4": 4, "F6": 10, "NULL": 5, "up + left": 6, "up + right": 7, "down + left": 8, "down + right": 9,
+		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6,
 		"B-0":31,"C-1":33,"D-1":37,"E-1":41,"F-1":44,"G-1":49,"A-1":55,"B-1":62,
 			"C-2":65,"D-2":73,"E-2":82,"F-2":87,"G-2":98,"A-2":110,"B-2":123,
 			"C-3":131,"D-3":147,"E-3":165,"F-3":175,"G-3":196,"A-3":220,"B-3":247,
