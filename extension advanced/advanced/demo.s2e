@@ -1,0 +1,84 @@
+{	"extensionName": "UMI Advanced",
+	"description": "Extension for UMI Advanced",
+	"version": "1.0",
+	"author": "UMI Academy",
+	"homepage": "umi.edu.vn",
+	"sort":0,
+	"javascriptURL":"js/demo.js",
+  "firmware":"1.1",
+  "extensionPort":0,
+	"blockSpecs": [
+		[
+			"h",
+			"UMI Advanced",
+			"runArduino",
+			{
+				"setup":"pixels.begin();\npixels.clear();\npixels.show();\n",
+				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
+				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
+				"work":"",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"LCD write text %s LCD collum %d row %d",
+			"lcdWrite",
+			"Kids Maker",
+			"1",
+			"1",
+			{
+				"setup":"lcd.init();\nlcd.init();\nlcd.backlight();\n",
+				"inc":"#include \"LiquidCrystal_I2C.h\"\n",
+				"def":"LiquidCrystal_I2C lcd(0x3F,16,2);\n",
+				"work":"lcd.setCursor({1}-1,{2}-1);\nlcd.print({0});\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"LCD clear",
+			"lcdClear",
+			{
+				"setup":"",
+				"inc":"#include \"LiquidCrystal_I2C.h\"\n",
+				"def":"LiquidCrystal_I2C lcd(0x3F,16,2);\n",
+				"work":"lcd.clear();\n",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"LCD scroll %d.scrollDir",
+			"lcdScroll",
+			"scroll left",
+			{
+				"setup":"",
+				"inc":"#include \"LiquidCrystal_I2C.h\"\n",
+				"def":"LiquidCrystal_I2C lcd(0x3F,16,2);\n",
+				"work":"({0} == 1) ? lcd.scrollDisplayLeft() : lcd.scrollDisplayRight();\n",
+				"loop":""
+			}
+		],
+
+	],
+	"menus": {
+		"scrollDir":["scroll left", "scroll right"]
+	},
+	"values":{
+		"scroll left": 1,
+		"scroll right": 2
+	},
+	"translators":{
+		"zh_CN":{
+			"Demo Program":"演示程序",
+			"HIGH":"高电平",
+			"LOW":"低电平",
+			"digitalWrite( %n , %d.digital )":"数字口输出( %n ,%d.digital )",
+      "blink":"闪烁"
+		}
+	}
+}
