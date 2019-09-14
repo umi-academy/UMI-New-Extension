@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "1.6",
+	"version": "1.7",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -30,7 +30,7 @@
 				"setup":"pinMode(13,OUTPUT);\n",
 				"inc":"",
 				"def":"",
-				"work":"digitalWrite(13,{0})\n",
+				"work":"digitalWrite(13,{0});\n",
 				"loop":""
 			}
 		],
