@@ -1,6 +1,6 @@
 {	"extensionName": "UMI Hello",
 	"description": "Extension for UMI Hello",
-	"version": "1.4",
+	"version": "1.6",
 	"author": "UMI Academy",
 	"homepage": "umi.edu.vn",
 	"sort":0,
@@ -17,6 +17,20 @@
 				"inc":"#include \"Adafruit_NeoPixel.h\"\n",
 				"def":"Adafruit_NeoPixel pixels = Adafruit_NeoPixel(17, 13, NEO_GRB + NEO_KHZ800);\n",
 				"work":"",
+				"loop":""
+			}
+		],
+
+		[
+			"w",
+			"Built-in LED %d.led",
+			"led13",
+			"ON",
+			{
+				"setup":"pinMode(13,OUTPUT);\n",
+				"inc":"",
+				"def":"",
+				"work":"digitalWrite(13,{0})\n",
 				"loop":""
 			}
 		],
@@ -125,6 +139,7 @@
 
 	],
 	"menus": {
+		"led": ["ON", "OFF"],
 		"digital":["HIGH","LOW"],
 		"side": ["LEFT","RIGHT"],
 		"direction": ["Forward","Backward"],
@@ -134,8 +149,8 @@
 		"beats":["Half","Quarter","Eighth","Whole","Double","Zero"]
 	},
 	"values":{
-		"HIGH":1,
-		"LOW":0,
+		"ON": 1, "OFF": 0,
+		"HIGH":1, "LOW":0,
 		"LEFT": 0, "RIGHT": 1, "Forward": 0, "Backward": 1,
 		"up": 0, "down": 1, "left":2, "right":3, "F4": 4, "F6": 10, "NULL": 5, "up + left": 6, "up + right": 7, "down + left": 8, "down + right": 9,
 		"channel-1": 0, "channel-2": 1, "channel-3": 2, "channel-4": 3, "channel-5": 4, "channel-6": 5, "channel-7": 6,
